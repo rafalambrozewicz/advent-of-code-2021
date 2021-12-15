@@ -14,7 +14,7 @@ class Day15 {
         val costOfTopLeftPosition  = costsOfMoving[0][0]
         val costOfBottomRightPosition = costsOfMoving[costsOfMoving.size - 1][costsOfMoving.first().size - 1]
 
-        println(costOfBottomRightPosition - costOfTopLeftPosition) // 442, incorrect
+        println(costOfBottomRightPosition - costOfTopLeftPosition) // 441
     }
 
     private fun readInput(): Array<IntArray> {
@@ -36,22 +36,70 @@ class Day15 {
 
         for (y in 0 until allCosts.size) {
             for (x in 0 until allCosts.first().size) {
-                when {
-                    (y == 0 && x == 0) -> { /* do nothing */ }
-                    (y == 0) -> { allCosts[y][x] = allCosts[y][x-1] + allCosts[y][x] }
-                    (x == 0) -> { allCosts[y][x] = allCosts[y-1][x] + allCosts[y][x] }
-                    else -> {
-                        allCosts[y][x] = minOf(
-                            (allCosts[y-1][x] + allCosts[y][x]),
-                            (allCosts[y][x-1] + allCosts[y][x])
-                        )
-                    }
+                allCosts[y][x] = findCost(x, y, caveRiskLevels, allCosts)
 
-                }
+                updateCostsIfGoingFromGivenPositionIsBetter(x, y, allCosts[y][x], y, caveRiskLevels, allCosts)
             }
         }
 
         return allCosts
+    }
+
+    private fun findCost(x: Int, y: Int, caveRiskLevels: Array<IntArray>, allCosts: Array<IntArray>): Int {
+        return when {
+            (y == 0 && x == 0) -> { caveRiskLevels[y][x] }
+            (y == 0) -> { allCosts[y][x-1] + allCosts[y][x] }
+            (x == 0) -> { allCosts[y-1][x] + allCosts[y][x] }
+            else -> {
+                minOf(
+                    (allCosts[y-1][x] + allCosts[y][x]),
+                    (allCosts[y][x-1] + allCosts[y][x])
+                )
+            }
+        }
+    }
+
+    private fun updateCostsIfGoingFromGivenPositionIsBetter(x: Int, y: Int, cost: Int, yLimit: Int, caveRiskLevels: Array<IntArray>, allCosts: Array<IntArray>) {
+        val canGoUp = (y > 0)
+        val canGoDown = y < (caveRiskLevels.size - 1) && (y < yLimit)
+        val canGoLeft = x > 0
+        val canGoRight = x < (caveRiskLevels.first().size - 1)
+
+        if (canGoUp) {
+            val upOldCost = allCosts[y-1][x]
+            val upNewCost = cost + caveRiskLevels[y-1][x]
+            if (upNewCost < upOldCost) {
+                allCosts[y-1][x] = upNewCost
+                updateCostsIfGoingFromGivenPositionIsBetter(x, y-1, upNewCost, yLimit, caveRiskLevels, allCosts)
+            }
+        }
+
+        if (canGoDown) {
+            val downOldCost = allCosts[y+1][x]
+            val downNewCost = cost + caveRiskLevels[y+1][x]
+            if (downNewCost < downOldCost) {
+                allCosts[y+1][x] = downNewCost
+                updateCostsIfGoingFromGivenPositionIsBetter(x, y+1, downNewCost, yLimit, caveRiskLevels, allCosts)
+            }
+        }
+
+        if (canGoLeft) {
+            val leftOldCost = allCosts[y][x-1]
+            val leftNewCost = cost + caveRiskLevels[y][x-1]
+            if (leftNewCost < leftOldCost) {
+                allCosts[y][x-1] = leftNewCost
+                updateCostsIfGoingFromGivenPositionIsBetter(x-1, y, leftNewCost, yLimit, caveRiskLevels, allCosts)
+            }
+        }
+
+        if (canGoRight) {
+            val rightOldCost = allCosts[y][x+1]
+            val rightNewCost = cost + caveRiskLevels[y][x+1]
+            if (rightNewCost < rightOldCost) {
+                allCosts[y][x+1] = rightNewCost
+                updateCostsIfGoingFromGivenPositionIsBetter(x+1, y, rightNewCost, yLimit, caveRiskLevels, allCosts)
+            }
+        }
     }
 
     @Test
@@ -64,7 +112,7 @@ class Day15 {
         val costOfTopLeftPosition  = costsOfMoving[0][0]
         val costOfBottomRightPosition = costsOfMoving[costsOfMoving.size - 1][costsOfMoving.first().size - 1]
 
-        println(costOfBottomRightPosition - costOfTopLeftPosition) // 2853, incorrect
+        println(costOfBottomRightPosition - costOfTopLeftPosition) // 2849
     }
 
     private fun createFullMap(caveRiskLevels: Array<IntArray>): Array<IntArray> {
