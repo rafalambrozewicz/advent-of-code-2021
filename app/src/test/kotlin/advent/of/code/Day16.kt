@@ -152,10 +152,10 @@ class Day16 {
                         p.packets.map { valueOfPacketRecursive(it) }.fold(1L) { acc, v -> acc * v}
                     }
                     OPERATION_MINIMUM_TYPE_PACKET_ID -> {
-                        p.packets.map { valueOfPacketRecursive(it) }.min()!!
+                        p.packets.map { valueOfPacketRecursive(it) }.minOrNull()!!
                     }
                     OPERATION_MAXIMUM_TYPE_PACKET_ID -> {
-                        p.packets.map { valueOfPacketRecursive(it) }.max()!!
+                        p.packets.map { valueOfPacketRecursive(it) }.maxOrNull()!!
                     }
                     OPERATION_GREATER_THAN_TYPE_PACKET_ID -> {
                         val (p1, p2) = p.packets.map { valueOfPacketRecursive(it) }

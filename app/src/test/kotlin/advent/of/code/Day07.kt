@@ -18,7 +18,7 @@ class Day07 {
             }
             .flatten()
 
-        val maxVPos = vPositions.max()!!
+        val maxVPos = vPositions.maxOrNull()!!
 
         val noOfCrabsAtPosition = IntArray((maxVPos + LISTS_START_FROM_ZERO_COMPENSATION)) { 0 }
         vPositions.forEach { p -> noOfCrabsAtPosition[p]++ }
@@ -43,7 +43,7 @@ class Day07 {
 
         val totalCosts = costsOfMovingUp.zip(costsOfMovingDown) { c1, c2 -> c1 + c2 }
 
-        val minCost = totalCosts.min()!!
+        val minCost = totalCosts.minOrNull()!!
 
         println(minCost) // 344297
     }
@@ -57,7 +57,7 @@ class Day07 {
             }
             .flatten()
 
-        val maxVPos = vPositions.max()!!
+        val maxVPos = vPositions.maxOrNull()!!
 
         val noOfCrabsAtPosition = IntArray((maxVPos + LISTS_START_FROM_ZERO_COMPENSATION)) { 0 }
         vPositions.forEach { p -> noOfCrabsAtPosition[p]++ }
@@ -69,7 +69,7 @@ class Day07 {
 
         val totalCosts = sumOfCostsOfMovingUp.zip(sumOfCostsOfMovingDown) { c1, c2 -> c1 + c2 }
 
-        val minCost = totalCosts.min()!!
+        val minCost = totalCosts.minOrNull()!!
 
         println(minCost) // 97164301
     }

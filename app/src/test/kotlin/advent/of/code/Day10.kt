@@ -3,7 +3,6 @@ package advent.of.code
 import org.junit.Test
 import java.io.File
 
-@OptIn(ExperimentalStdlibApi::class)
 class Day10 {
 
     companion object {

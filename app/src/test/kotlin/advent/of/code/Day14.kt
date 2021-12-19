@@ -19,8 +19,8 @@ class Day14 {
 
         val charToCount = resultPolymer.toCharArray().groupBy { it }
 
-        val mostCommonElementCount = charToCount.maxBy { it.value.size }!!.value.size
-        val leastCommonElementCount = charToCount.minBy { it.value.size }!!.value.size
+        val mostCommonElementCount = charToCount.maxByOrNull { it.value.size }!!.value.size
+        val leastCommonElementCount = charToCount.minByOrNull { it.value.size }!!.value.size
 
         println(mostCommonElementCount - leastCommonElementCount) // 2223
     }
@@ -77,8 +77,8 @@ class Day14 {
                 updatedMap.toMap()
             }
 
-        val mostCommonElementCount = letterToCount.maxBy { it.value }!!.value
-        val leastCommonElementCount = letterToCount.minBy { it.value }!!.value
+        val mostCommonElementCount = letterToCount.maxByOrNull { it.value }!!.value
+        val leastCommonElementCount = letterToCount.minByOrNull { it.value }!!.value
 
         println(mostCommonElementCount - leastCommonElementCount) // 2566282754493
     }

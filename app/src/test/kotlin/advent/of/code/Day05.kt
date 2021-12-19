@@ -24,8 +24,8 @@ class Day05 {
             }
             .filter { (it.x1 == it.x2) || (it.y1 == it.y2) }
 
-        val sizeX = horizontalAndVerticalLines.maxBy { maxOf(it.x1, it.x2) }!!.let { maxOf(it.x1, it.x2) } + LISTS_START_FROM_ZERO_COMPENSATION
-        val sizeY = horizontalAndVerticalLines.maxBy { maxOf(it.y1, it.y2) }!!.let { maxOf(it.y1, it.y2) } + LISTS_START_FROM_ZERO_COMPENSATION
+        val sizeX = horizontalAndVerticalLines.maxByOrNull { maxOf(it.x1, it.x2) }!!.let { maxOf(it.x1, it.x2) } + LISTS_START_FROM_ZERO_COMPENSATION
+        val sizeY = horizontalAndVerticalLines.maxByOrNull { maxOf(it.y1, it.y2) }!!.let { maxOf(it.y1, it.y2) } + LISTS_START_FROM_ZERO_COMPENSATION
 
         val board = Array(sizeY) { _ -> IntArray(sizeX) { _ -> 0}}
 
@@ -56,8 +56,8 @@ class Day05 {
                 Line(values[0], values[1], values[2], values[3])
             }
 
-        val sizeX = lines.maxBy { maxOf(it.x1, it.x2) }!!.let { maxOf(it.x1, it.x2) } + LISTS_START_FROM_ZERO_COMPENSATION
-        val sizeY = lines.maxBy { maxOf(it.y1, it.y2) }!!.let { maxOf(it.y1, it.y2) } + LISTS_START_FROM_ZERO_COMPENSATION
+        val sizeX = lines.maxByOrNull { maxOf(it.x1, it.x2) }!!.let { maxOf(it.x1, it.x2) } + LISTS_START_FROM_ZERO_COMPENSATION
+        val sizeY = lines.maxByOrNull { maxOf(it.y1, it.y2) }!!.let { maxOf(it.y1, it.y2) } + LISTS_START_FROM_ZERO_COMPENSATION
 
         val board = Array(sizeY) { _ -> IntArray(sizeX) { _ -> 0}}
 

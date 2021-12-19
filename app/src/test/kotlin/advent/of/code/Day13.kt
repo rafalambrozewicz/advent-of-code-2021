@@ -45,8 +45,8 @@ class Day13 {
     }
 
     private fun populateTransparency(i: Input): Array<IntArray> {
-        val width = i.points.map { it.first }.max()!! + ARRAYS_START_FROM_ZERO_COMPENSATION
-        val height = i.points.map { it.second }.max()!!  + ARRAYS_START_FROM_ZERO_COMPENSATION
+        val width = i.points.map { it.first }.maxOrNull()!! + ARRAYS_START_FROM_ZERO_COMPENSATION
+        val height = i.points.map { it.second }.maxOrNull()!!  + ARRAYS_START_FROM_ZERO_COMPENSATION
 
         val transparency = Array(height) { IntArray(width) { 0 } }
         i.points.forEach { (x, y) ->
