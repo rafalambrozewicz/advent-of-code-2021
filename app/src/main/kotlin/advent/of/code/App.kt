@@ -6,7 +6,7 @@ package advent.of.code
 class App {
     val greeting: String
         get() {
-            return "Hello World!"
+            return "Ups! Solutions are in `app/src/test/kotlin/advent.of.code` directory!"
         }
 }
 
